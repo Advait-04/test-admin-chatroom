@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=VT323&display=swap");
+
+* {
+    font-family: "VT323", sans-serif;
+    background-color: white;
+    padding: 0;
+    margin: 0;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+    text-decoration: none !important;
+    color: inherit !important;
+    background-color: inherit !important;
+}
+
+.navbar {
+    background-color: hsla(0, 100%, 100%, 0.08);
+    box-shadow: 0px 3px 4px 0px hsla(0, 0%, 0%, 0.14),
+        0px 3px 3px -2px hsla(0, 0%, 0%, 0.12),
+        0px 1px 8px 0px hsla(0, 0%, 0%, 0.2);
+
+    height: 12vh;
+}
+
+.pages {
+    height: 88vh;
+}
+
+.login,
+.signup,
+.room-select,
+.chatroom-chat {
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.chatroom-chat {
+    height: 90%;
+}
+
+.chatroom-header {
+    height: 8%;
+    border-bottom: 1px solid lightskyblue;
+}
+
+.login,
+.signup {
+    width: 23rem;
+    height: 30rem;
+}
+
+.room-select {
+    width: 25rem;
+    height: auto;
+}
+
+.nav-seperator {
+    background-color: black;
+    width: 1px;
+    height: 30px;
+}
