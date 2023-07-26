@@ -1,13 +1,26 @@
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
-// import { AiOutlineArrowRight } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 const RoomSelect = () => {
     const [room, setRoom] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const response = await fetch("/api/chats/retrievechat", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ room }),
+        });
+
+        const json = await response.json();
+
+        if (response.ok) {
+            navigate("/chatroom", { state: json });
+        }
     };
 
     return (
