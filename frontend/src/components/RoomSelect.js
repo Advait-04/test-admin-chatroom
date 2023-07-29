@@ -10,16 +10,8 @@ const RoomSelect = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("/api/chats/retrievechat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ room }),
-        });
-
-        const json = await response.json();
-
-        if (response.ok) {
-            navigate("/chatroom", { state: json });
+        if (room) {
+            navigate("/chatroom", { state: { room } });
         }
     };
 
@@ -36,7 +28,7 @@ const RoomSelect = () => {
                         placeholder="ex:oratoria"
                         size="lg"
                     />
-                    <Button variant="success" size="lg">
+                    <Button variant="success" size="lg" type="submit">
                         Go
                     </Button>
                 </div>

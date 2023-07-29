@@ -3,6 +3,8 @@ const Chatroom = require("../models/chatroomModel");
 const sendChat = async (req, res) => {
     const { room, user, text } = req.body;
 
+    console.log(room, user, text);
+
     try {
         const chat = await Chatroom.sendChat(room, user, text);
         res.status(200).send(chat);

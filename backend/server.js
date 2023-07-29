@@ -20,7 +20,11 @@ app.use("/", userRoutes);
 app.use("/", chatRoutes);
 
 mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        // useFindAndModify: false,
+        useUnifiedTopology: true,
+    })
     .then(() => {
         app.listen(5000, () => {
             console.log("connected to db and on port 5000");
