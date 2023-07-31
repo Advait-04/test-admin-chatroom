@@ -14,7 +14,7 @@ const sendChat = async (req, res) => {
 };
 
 const retrieveChat = async (req, res) => {
-    const { room } = req.body;
+    const room = req.params.room;
 
     try {
         const chatHistory = await Chatroom.retrieveChat(room);

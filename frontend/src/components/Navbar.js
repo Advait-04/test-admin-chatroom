@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import { useLogout } from "../hooks/useLogout";
 import { useAuthContext } from "../hooks/useAuthContext";
@@ -6,9 +6,11 @@ import { useAuthContext } from "../hooks/useAuthContext";
 const Navbar = () => {
     const { logout } = useLogout();
     const { user } = useAuthContext();
+    const navigate = useNavigate();
 
     const handleClick = () => {
         logout();
+        navigate("/");
     };
 
     // const user = JSON.parse(localStorage.getItem("user"));

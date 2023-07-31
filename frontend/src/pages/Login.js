@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useLogin } from "../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react";
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -15,10 +16,11 @@ const Login = () => {
 
         await login(email, password);
 
-        if (!error) {
+        if (localStorage.getItem("user")) {
             navigate("/");
         }
     };
+
     return (
         <Form className="login p-5 fs-5" onSubmit={handleSumbit}>
             <h3 className="text-center mb-4 fs-3 mt-4">-- Login --</h3>
@@ -43,11 +45,22 @@ const Login = () => {
 
             <Button
                 disabled={error}
-                variant="primary"
-                type="sumbit"
-                className="mt-4 w-100 fs-5 "
+                variant={"primary"}
+                type="submit"
+                className={`mt-4 w-100 fs-5 d-flex align-items-center justify-content-center p-2 ${
+                    isLoading ? "for-loading" : ""
+                }`}
             >
-                Login
+                {isLoading ? (
+                    <Spinner
+                        emptyColor="white"
+                        speed="0.8s"
+                        color="blue.500"
+                        size="lg"
+                    />
+                ) : (
+                    `Login`
+                )}
             </Button>
         </Form>
     );

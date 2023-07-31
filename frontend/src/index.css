@@ -63,3 +63,7 @@ a:active {
     width: 1px;
     height: 30px;
 }
+
+.for-loading {
+    background-color: white !important;
+}

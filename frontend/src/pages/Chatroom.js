@@ -13,11 +13,13 @@ const Chatroom = () => {
     const bottomRef = useRef(null);
 
     const refreshChat = async (room) => {
-        const response = await fetch("/api/chats/retrievechat", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ room }),
-        });
+        // const response = await fetch("/api/chats/retrievechat", {
+        //     method: "POST",
+        //     headers: { "Content-Type": "application/json" },
+        //     body: JSON.stringify({ room }),
+        // });
+
+        const response = await fetch(`/api/chats/retrievechat/${room}`);
 
         const json = await response.json();
 

@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useSignup } from "../hooks/useSignup";
 import { useNavigate } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react";
 
 const SignUp = () => {
     const [email, setEmail] = useState("");
@@ -14,6 +15,10 @@ const SignUp = () => {
         e.preventDefault();
 
         await signup(email, password);
+
+        if (localStorage.getItem("user")) {
+            navigate("/");
+        }
     };
     return (
         <Form className="signup p-5 fs-5" onSubmit={handleSumbit}>
@@ -38,12 +43,21 @@ const SignUp = () => {
             {error && <div className="error">{error}</div>}
 
             <Button
-                disabled={isLoading}
+                disabled={error}
                 variant="primary"
                 type="sumbit"
                 className="mt-4 w-100 fs-5"
             >
-                Sign up
+                {isLoading ? (
+                    <Spinner
+                        emptyColor="white"
+                        speed="0.8s"
+                        color="blue.500"
+                        size="lg"
+                    />
+                ) : (
+                    `Sign Up`
+                )}
             </Button>
         </Form>
     );
