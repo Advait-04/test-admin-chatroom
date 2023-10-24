@@ -9,15 +9,6 @@ const chatRoutes = require("./routes/chatroom");
 
 const mongoose = require("mongoose");
 
-app.use(
-    cors({
-        origin: ["http://localhost:3000"],
-        methods: ["GET", "POST"],
-        credentials: true,
-    })
-);
-
-// logger
 app.use((req, res, next) => {
     console.log(req.path, req.method);
     next();
@@ -38,8 +29,3 @@ mongoose
     .catch((error) => {
         console.log(error);
     });
-
-// mongodb://0.0.0.0:27017/mern
-// {useNewUrlParser: true,
-//         // useFindAndModify: false,
-//         useUnifiedTopology: true,}

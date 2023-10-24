@@ -24,10 +24,13 @@ const sendChat = async (req, res) => {
 
     const encryptedText = encryptText(text);
 
+    console.log(room, user, text);
+
     try {
         const chat = await Chatroom.sendChat(room, user, encryptedText);
         res.status(200).send(chat);
     } catch (error) {
+        console.log(error);
         res.status(400).json({ error: error.message });
     }
 };

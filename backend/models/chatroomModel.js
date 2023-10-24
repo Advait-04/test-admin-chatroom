@@ -43,7 +43,7 @@ chatroomSchema.statics.sendChat = async function (room, user, text) {
 
     const chatroom = await this.findOne({ room });
 
-    // console.log("chatroom", chatroom);
+    console.log("chatroom", chatroom);
     if (chatroom) {
         const chat = await this.updateOne(
             { room: room },
