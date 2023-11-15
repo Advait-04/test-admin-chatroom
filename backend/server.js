@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const userRoutes = require("./routes/user");
 const chatRoutes = require("./routes/chatroom");
+const adminRoutes = require("./routes/admin");
 
 const mongoose = require("mongoose");
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use("/", userRoutes);
 app.use("/", chatRoutes);
+app.use("/", adminRoutes);
 
 mongoose
     .connect(process.env.MONGO_URI)

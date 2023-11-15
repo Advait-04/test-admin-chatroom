@@ -4,6 +4,26 @@ const validator = require("validator");
 
 const Schema = mongoose.Schema;
 
+const logSchema = new Schema({
+    chatrooms: [
+        {
+            type: String,
+            required: true,
+            default: [],
+        },
+    ],
+    nooftotalchats: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
+    totalusage: {
+        type: Number,
+        required: true,
+        default: 0,
+    },
+});
+
 const userSchema = new Schema({
     email: {
         type: String,
@@ -14,10 +34,14 @@ const userSchema = new Schema({
         type: String,
         require: true,
     },
+    logs: {
+        type: logSchema,
+        required: true,
+    },
 });
 
 //static signup method
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (email, password, logs) {
     //validation
     if (!email || !password) {
         throw Error("All fields must be filled");
@@ -39,7 +63,7 @@ userSchema.statics.signup = async function (email, password) {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const user = await this.create({ email, password: hash });
+    const user = await this.create({ email, password: hash, logs });
 
     return user;
 };
@@ -63,6 +87,66 @@ userSchema.statics.login = async function (email, password) {
     }
 
     return user;
+};
+
+//statics
+userSchema.statics.updateChatrooms = async function (email, chatroom) {
+    if (!chatroom) {
+        throw Error("Field not entered");
+    }
+
+    const update = await this.updateOne(
+        { email },
+        { $push: { "logs.chatrooms": chatroom } }
+    );
+
+    if (!update) {
+        throw Error("Incorrect email");
+    }
+
+    return update;
+};
+
+userSchema.statics.updateNoOfTotalChats = async function (email, updateValue) {
+    if (!updateValue) {
+        throw Error("Update Field not entered");
+    }
+
+    // console.log(typeof updateValue);
+
+    const update = await this.updateOne(
+        { email },
+        {
+            $inc: { "logs.nooftotalchats": Number(updateValue) },
+        }
+    );
+
+    if (update.matchedCount === 0) {
+        throw Error("Incorrect email");
+    }
+
+    return update;
+};
+
+userSchema.statics.updateTotalUsage = async function (email, updateValue) {
+    if (!updateValue) {
+        throw Error("Update Field not entered");
+    }
+
+    const update = await this.updateOne(
+        { email },
+        {
+            $inc: {
+                "logs.totalusage": Number(updateValue),
+            },
+        }
+    );
+
+    if (update.matchedCount === 0) {
+        throw Error("Incorrect email");
+    }
+
+    return update;
 };
 
 module.exports = mongoose.model("User", userSchema);

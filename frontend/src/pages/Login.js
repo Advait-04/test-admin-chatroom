@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useLogin } from "../hooks/useLogin";
@@ -8,7 +8,10 @@ import { Spinner } from "@chakra-ui/react";
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const { login, error, isLoading } = useLogin();
+    const { login, error, isLoading, setError } = useLogin();
+
+    const formRef = useRef();
+
     const navigate = useNavigate();
 
     const handleSumbit = async (e) => {
@@ -21,8 +24,16 @@ const Login = () => {
         }
     };
 
+    useEffect(() => {
+        if (error !== null) {
+            setInterval(() => {
+                setError(null);
+            }, 2000);
+        }
+    }, [error]);
+
     return (
-        <Form className="login p-5 fs-5" onSubmit={handleSumbit}>
+        <Form className="login p-5 fs-5" onSubmit={handleSumbit} ref={formRef}>
             <h3 className="text-center mb-4 fs-3 mt-4">-- Login --</h3>
             <Form.Group className="mb-3">
                 <Form.Label>Email</Form.Label>
