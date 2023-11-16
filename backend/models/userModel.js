@@ -149,4 +149,41 @@ userSchema.statics.updateTotalUsage = async function (email, updateValue) {
     return update;
 };
 
+userSchema.statics.getTopUser = async function () {
+    const users = await this.find({}).sort({ "logs.totalusage": -1 }).limit(1);
+
+    if (!users) {
+        throw Error("New app there is no chat");
+    }
+
+    const topUser = { user: users[0].email, usage: users[0].logs.totalusage };
+
+    return topUser;
+};
+
+userSchema.statics.getBottomUser = async function () {
+    const users = await this.find({}).sort({ "logs.totalusage": 1 }).limit(1);
+
+    if (!users) {
+        throw Error("New app there is no chat");
+    }
+
+    const bottomUser = {
+        user: users[0].email,
+        usage: users[0].logs.totalusage,
+    };
+
+    return bottomUser;
+};
+
+userSchema.statics.getUser = async function (email) {
+    const user = await this.find({ email });
+
+    if (!user) {
+        throw Error("The user does not exist");
+    }
+
+    return user;
+};
+
 module.exports = mongoose.model("User", userSchema);
