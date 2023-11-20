@@ -89,15 +89,14 @@ userSchema.statics.login = async function (email, password) {
     return user;
 };
 
-//statics
-userSchema.statics.updateChatrooms = async function (email, chatroom) {
-    if (!chatroom) {
+userSchema.statics.updateChatrooms = async function (email, chatrooms) {
+    if (!chatrooms) {
         throw Error("Field not entered");
     }
 
     const update = await this.updateOne(
         { email },
-        { $push: { "logs.chatrooms": chatroom } }
+        { $addToSet: { "logs.chatrooms": chatrooms } }
     );
 
     if (!update) {

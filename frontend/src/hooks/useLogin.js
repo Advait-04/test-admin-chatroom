@@ -27,6 +27,17 @@ export const useLogin = () => {
             //save the user to local storage
             localStorage.setItem("user", JSON.stringify(json));
 
+            //start the timer for logging the hours used by a user
+            localStorage.setItem(
+                "logs",
+                JSON.stringify({
+                    loginTime: Math.floor(Date.now() / 1000),
+                    roomTime: {},
+                    roomsAccessed: [],
+                    totalChats: 0,
+                })
+            );
+
             //update the auth context
             dispatch({ type: "LOGIN", payload: json });
 

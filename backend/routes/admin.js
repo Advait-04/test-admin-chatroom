@@ -12,6 +12,8 @@ const {
     getBottomUser,
     getDashboardItem,
     getUser,
+    addConcurrentUser,
+    removeConcurrentUser,
 } = require("../controllers/adminController");
 
 router.patch("/api/admin/updateuserchatrooms", updateChatrooms);
@@ -22,7 +24,9 @@ router.post("/api/admin/auth/login", adminLogin);
 router.post("/api/admin/auth/signup", adminSignup);
 router.post("/api/admin/adddashboarditem", addDashboardItem);
 
-//yet to finish working of these end points
+router.post("/api/admin/addconcurrentuser", addConcurrentUser);
+router.post("/api/admin/removeconcurrentuser", removeConcurrentUser);
+
 //so basically use get bottom user and top user and then use the result to call the add dashboard item
 router.get("/api/admin/gettopuser", getTopUser);
 router.get("/api/admin/getbottomuser", getBottomUser);

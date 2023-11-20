@@ -19,7 +19,7 @@ const Login = () => {
 
         await login(email, password);
 
-        if (localStorage.getItem("user")) {
+        if (localStorage.getItem("user") && localStorage.getItem("logs")) {
             navigate("/");
         }
     };

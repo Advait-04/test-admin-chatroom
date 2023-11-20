@@ -54,4 +54,35 @@ dashboardSchema.statics.getDashboardItem = async function () {
     return items[0];
 };
 
+dashboardSchema.statics.addConcurrentUser = async function (user) {
+    const latestItem = await this.find({}).sort({ _id: -1 }).limit(1);
+
+    const itemId = latestItem[0]._id.valueOf();
+
+    console.log(user);
+
+    const update = await this.findByIdAndUpdate(
+        { _id: itemId },
+        { $addToSet: { concurrentusers: user } },
+        { new: true }
+    );
+
+    console.log(update);
+    return update;
+};
+
+dashboardSchema.statics.removeConcurrentUser = async function (user) {
+    const latestItem = await this.find({}).sort({ _id: -1 }).limit(1);
+
+    const itemId = latestItem[0]._id.valueOf();
+
+    const update = await this.findByIdAndUpdate(
+        { _id: itemId },
+        { $pull: { concurrentusers: user } },
+        { new: true }
+    );
+
+    return update;
+};
+
 module.exports = mongoose.model("Dashboard", dashboardSchema);

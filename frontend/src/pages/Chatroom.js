@@ -28,6 +28,18 @@ const Chatroom = () => {
 
     useEffect(() => {
         setInterval(async () => await refreshChat(room), 1000);
+
+        console.log(room);
+
+        if (localStorage.getItem("logs")) {
+            const logs = JSON.parse(localStorage.getItem("logs"));
+
+            if (!logs.roomsAccessed.includes(room)) {
+                logs.roomsAccessed = [...logs.roomsAccessed, room];
+            }
+
+            localStorage.setItem("logs", JSON.stringify(logs));
+        }
     }, [room]);
 
     useEffect(() => {
@@ -47,8 +59,18 @@ const Chatroom = () => {
             });
 
             console.log(response);
+
+            if (localStorage.getItem("logs")) {
+                console.log("inside update");
+
+                const logs = JSON.parse(localStorage.getItem("logs"));
+
+                logs.totalChats = logs.totalChats + 1;
+
+                localStorage.setItem("logs", JSON.stringify(logs));
+            }
         } catch (err) {
-            console.log("Error while sending message");
+            console.log("Error while sending message", err);
         }
 
         setText("");
