@@ -21,6 +21,30 @@ const chatSchema = new Schema({
     },
 });
 
+const userSchema = new Schema({
+    user: {
+        type: String,
+    },
+    messagecount: {
+        type: Number,
+    },
+});
+
+const logSchema = new Schema({
+    totalchats: {
+        type: Number,
+        required: true,
+    },
+    topuser: {
+        type: userSchema,
+        required: true,
+    },
+    bottomuser: {
+        type: userSchema,
+        required: true,
+    },
+});
+
 const chatroomSchema = new Schema({
     room: {
         type: String,
@@ -33,6 +57,11 @@ const chatroomSchema = new Schema({
             required: true,
         },
     ],
+
+    logs: {
+        type: logSchema,
+        required: true,
+    },
 });
 
 // static insert method
@@ -43,7 +72,6 @@ chatroomSchema.statics.sendChat = async function (room, user, text) {
 
     const chatroom = await this.findOne({ room });
 
-    console.log("chatroom", chatroom);
     if (chatroom) {
         const chat = await this.updateOne(
             { room: room },
@@ -52,7 +80,19 @@ chatroomSchema.statics.sendChat = async function (room, user, text) {
 
         return chat;
     } else {
-        const chat = this.create({ room, chat: [{ user, text }] });
+        console.log("hello");
+
+        const logObj = {
+            totalchats: 0,
+            topuser: {},
+            bottomuser: {},
+        };
+
+        const chat = this.create({
+            room,
+            chat: [{ user, text }],
+            logs: logObj,
+        });
         return chat;
     }
 };
@@ -66,6 +106,45 @@ chatroomSchema.statics.retrieveChat = async function (room) {
     } else {
         return chatroom;
     }
+};
+
+//
+chatroomSchema.statics.updateLogs = async function (room) {
+    const chatroom = await this.findOne({ room });
+
+    if (!chatroom) {
+        throw Error("Chatroom does not exist");
+    }
+
+    const userFreq = await this.aggregate([
+        { $unwind: "$chat" },
+        { $sortByCount: "$chat.user" },
+    ]);
+
+    if (!userFreq) {
+        throw Error("DB aggregation error");
+    }
+
+    console.log(chatroom);
+
+    const item = await this.updateOne(
+        { room },
+        {
+            $set: {
+                "logs.totalchats": chatroom.chat.length,
+                "logs.topuser": {
+                    user: userFreq[0]._id,
+                    messagecount: userFreq[0].count,
+                },
+                "logs.bottomuser": {
+                    user: userFreq[userFreq.length - 1]._id,
+                    messagecount: userFreq[userFreq.length - 1].count,
+                },
+            },
+        }
+    );
+
+    return item;
 };
 
 module.exports = mongoose.model("Chatroom", chatroomSchema);

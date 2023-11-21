@@ -1,6 +1,9 @@
 require("dotenv").config();
 
 const Chatroom = require("../models/chatroomModel");
+const Dashboard = require("../models/dashboardModel");
+const User = require("../models/userModel");
+
 const crypto = require("crypto-js");
 
 const encryptText = (message) => {
@@ -24,10 +27,26 @@ const sendChat = async (req, res) => {
 
     const encryptedText = encryptText(text);
 
-    console.log(room, user, text);
-
     try {
         const chat = await Chatroom.sendChat(room, user, encryptedText);
+        const chatCountUpdate = await User.updateNoOfTotalChats(user, 1);
+
+        //updating dashboard
+        const topUser = await User.getTopUser();
+        const bottomUser = await User.getBottomUser();
+
+        console.log(topUser);
+        console.log(bottomUser);
+
+        const dashboardUpdate = await Dashboard.updateTopAndBottom(
+            topUser,
+            bottomUser
+        );
+        const dashboardItem = await Dashboard.getDashboardItem();
+
+        //updating logs of chatroom
+        const logUpdate = await Chatroom.updateLogs(room);
+
         res.status(200).send(chat);
     } catch (error) {
         console.log(error);

@@ -25,37 +25,11 @@ export const useLogout = () => {
             }
         );
 
-        // console.log(totalUsageUpdate);
-
-        const userChatroomsUpdate = await fetch(
-            "/api/admin/updateuserchatrooms",
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: user.email,
-                    chatrooms: logs.roomsAccessed,
-                }),
-            }
-        );
-
-        const totalChatUpdate = await fetch(
-            "/api/admin/updateusernooftotalchats",
-            {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: user.email,
-                    updateValue: logs.totalChats,
-                }),
-            }
-        );
-
-        console.log(totalChatUpdate);
+        const removeConc = await fetch("/api/admin/removeconcurrentuser", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user: user.email }),
+        });
 
         //remove user from storage
         localStorage.removeItem("user");

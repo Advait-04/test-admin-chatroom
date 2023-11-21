@@ -96,6 +96,14 @@ const getBottomUser = async (req, res) => {
 
 const getDashboardItem = async (req, res) => {
     try {
+        const topUser = await User.getTopUser();
+        const bottomUser = await User.getBottomUser();
+
+        const dashboardUpdate = await Dashboard.updateTopAndBottom(
+            topUser,
+            bottomUser
+        );
+
         const dashboardItem = await Dashboard.getDashboardItem();
         res.status(200).json(dashboardItem);
     } catch (error) {
@@ -139,6 +147,15 @@ const removeConcurrentUser = async (req, res) => {
     }
 };
 
+const getAllUser = async (req, res) => {
+    try {
+        const users = await User.getAllUser();
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
 module.exports = {
     updateChatrooms,
     updateNoOfTotalChats,
@@ -152,4 +169,5 @@ module.exports = {
     getUser,
     addConcurrentUser,
     removeConcurrentUser,
+    getAllUser,
 };

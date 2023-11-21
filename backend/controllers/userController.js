@@ -39,4 +39,6 @@ const signupUser = async (req, res) => {
     }
 };
 
+//get all user id
+
 module.exports = { loginUser, signupUser };

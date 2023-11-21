@@ -85,4 +85,15 @@ dashboardSchema.statics.removeConcurrentUser = async function (user) {
     return update;
 };
 
+dashboardSchema.statics.updateTopAndBottom = async function (top, bottom) {
+    const latestItem = await this.find({}).sort({ _id: -1 }).limit(1);
+
+    const itemId = latestItem[0]._id.valueOf();
+
+    const update = await this.findByIdAndUpdate(
+        { _id: itemId },
+        { $set: { topuser: top, bottomuser: bottom } }
+    );
+};
+
 module.exports = mongoose.model("Dashboard", dashboardSchema);

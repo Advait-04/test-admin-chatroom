@@ -185,4 +185,10 @@ userSchema.statics.getUser = async function (email) {
     return user;
 };
 
+userSchema.statics.getAllUser = async function () {
+    const users = await this.find({}, { _id: 1, email: 1 });
+
+    return users;
+};
+
 module.exports = mongoose.model("User", userSchema);

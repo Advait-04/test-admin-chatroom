@@ -29,17 +29,20 @@ const Chatroom = () => {
     useEffect(() => {
         setInterval(async () => await refreshChat(room), 1000);
 
-        console.log(room);
+        const updateVisitedChat = async () => {
+            const response = await fetch("/api/admin/updateuserchatrooms", {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: user.email,
+                    chatrooms: room,
+                }),
+            });
+        };
 
-        if (localStorage.getItem("logs")) {
-            const logs = JSON.parse(localStorage.getItem("logs"));
-
-            if (!logs.roomsAccessed.includes(room)) {
-                logs.roomsAccessed = [...logs.roomsAccessed, room];
-            }
-
-            localStorage.setItem("logs", JSON.stringify(logs));
-        }
+        updateVisitedChat();
     }, [room]);
 
     useEffect(() => {
@@ -60,7 +63,7 @@ const Chatroom = () => {
 
             console.log(response);
 
-            if (localStorage.getItem("logs")) {
+            if (localStorage.getItem("logs") && response.ok) {
                 console.log("inside update");
 
                 const logs = JSON.parse(localStorage.getItem("logs"));

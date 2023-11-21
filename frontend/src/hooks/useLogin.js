@@ -41,7 +41,23 @@ export const useLogin = () => {
             //update the auth context
             dispatch({ type: "LOGIN", payload: json });
 
-            setIsLoading(false);
+            //setting concurrent user
+            const concResponse = await fetch("/api/admin/addconcurrentuser", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user: email }),
+            });
+
+            const concJson = await concResponse.json();
+
+            if (!concResponse.ok) {
+                setError(concJson.error);
+                setIsLoading(false);
+            }
+
+            if (concResponse.ok) {
+                setIsLoading(false);
+            }
         }
     };
 

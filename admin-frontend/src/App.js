@@ -9,12 +9,11 @@ import { loginAtom } from "./utils/jotai";
 
 function App() {
     const [login, setLogin] = useAtom(loginAtom);
-    console.log(login);
 
     return (
-        <div className="app">
+        <div className="app d-flex flex-column ">
             <Navbar />
-            <div className="main d-flex justify-content-center align-items-center p-3">
+            <div className="main d-flex flex-column align-items-center  justify-content-center p-2 overflow-scroll container-fluid ">
                 {login ? <Main /> : <Login />}
             </div>
         </div>
