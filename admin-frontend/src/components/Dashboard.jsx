@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 const Dashboard = ({ dashboardItem }) => {
     // console.log(dashboardItem);
     const { concurrentusers, topuser, bottomuser } = dashboardItem;
@@ -19,7 +21,11 @@ const Dashboard = ({ dashboardItem }) => {
                 <p className="mx-3">
                     <span className="text-primary">{`${topuser.user} `}</span>
                     for
-                    <span className="text-success">{` ${topuser.usage} `}</span>
+                    <span className="text-success">{` ${
+                        Math.round(
+                            (topuser.usage / 3600 + Number.EPSILON) * 100
+                        ) / 100
+                    } `}</span>
                     hrs
                 </p>
             </div>
@@ -28,7 +34,11 @@ const Dashboard = ({ dashboardItem }) => {
                 <p className="mx-3">
                     <span className="text-primary">{`${bottomuser.user} `}</span>
                     for
-                    <span className="text-danger">{` ${bottomuser.usage} `}</span>
+                    <span className="text-danger">{` ${
+                        Math.round(
+                            (bottomuser.usage / 3600 + Number.EPSILON) * 100
+                        ) / 100
+                    } `}</span>
                     hrs
                 </p>
             </div>

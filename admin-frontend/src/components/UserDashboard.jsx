@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useUserDashboard } from "../hooks/useUserDashboard";
 
 import Spinner from "react-bootstrap/Spinner";
@@ -6,14 +6,43 @@ import Spinner from "react-bootstrap/Spinner";
 const UserDashboard = ({ user }) => {
     const { error, isLoading, userDashboard, getUserDashboard } =
         useUserDashboard();
+    const [intervalID, setIntervalID] = useState();
+    const [reqSpinner, setReqSpinner] = useState(false);
 
     useEffect(() => {
-        // setInterval(() => {}, 1000);
-
+        setReqSpinner(true);
         getUserDashboard(user);
+
+        if (intervalID) {
+            clearInterval(intervalID);
+            setIntervalID(
+                setInterval(() => {
+                    setReqSpinner(true);
+                    getUserDashboard(user);
+                }, 1000)
+            );
+        } else {
+            setIntervalID(
+                setInterval(() => {
+                    setReqSpinner(true);
+                    getUserDashboard(user);
+                }, 1000)
+            );
+        }
     }, [user]);
 
-    return isLoading ? (
+    useEffect(() => {
+        console.log("inside useeffect");
+        setReqSpinner(false);
+    });
+
+    useLayoutEffect(() => {
+        console.log("inside useeffect");
+
+        setReqSpinner(true);
+    }, [user]);
+
+    return reqSpinner ? (
         <Spinner />
     ) : userDashboard ? (
         <div>
@@ -40,7 +69,13 @@ const UserDashboard = ({ user }) => {
             <p className="mb-2 fw-bold fs-5">
                 total usage:{" "}
                 <span className="fw-light text-success ">
-                    {userDashboard.logs.totalusage}
+                    {`${
+                        Math.round(
+                            (userDashboard.logs.totalusage / 3600 +
+                                Number.EPSILON) *
+                                100
+                        ) / 100
+                    } hrs`}
                 </span>
             </p>
         </div>

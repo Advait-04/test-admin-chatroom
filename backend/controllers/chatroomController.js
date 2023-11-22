@@ -29,22 +29,20 @@ const sendChat = async (req, res) => {
 
     try {
         const chat = await Chatroom.sendChat(room, user, encryptedText);
+
+        // updating particular users chat count
         const chatCountUpdate = await User.updateNoOfTotalChats(user, 1);
 
         //updating dashboard
         const topUser = await User.getTopUser();
         const bottomUser = await User.getBottomUser();
 
-        console.log(topUser);
-        console.log(bottomUser);
-
         const dashboardUpdate = await Dashboard.updateTopAndBottom(
             topUser,
             bottomUser
         );
-        const dashboardItem = await Dashboard.getDashboardItem();
 
-        //updating logs of chatroom
+        //updating logs of the current chat room
         const logUpdate = await Chatroom.updateLogs(room);
 
         res.status(200).send(chat);

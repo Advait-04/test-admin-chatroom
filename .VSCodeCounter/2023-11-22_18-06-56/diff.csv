@@ -1,0 +1,33 @@
+"filename", "language", "JSON", "JavaScript", "Properties", "CSS", "JavaScript JSX", "comment", "blank", "total"
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/App.js", "JavaScript", 0, -18, 0, 0, 0, 0, -6, -24
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/ChatroomDashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, -96, 0, -9, -105
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/ChatroomDropdown.jsx", "JavaScript JSX", 0, 0, 0, 0, -19, 0, -3, -22
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/Dashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, -45, -1, -4, -50
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/Navbar.jsx", "JavaScript JSX", 0, 0, 0, 0, -19, 0, -5, -24
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/UserDashboard.jsx", "JavaScript JSX", 0, 0, 0, 0, -78, 0, -10, -88
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/UserDropdown.jsx", "JavaScript JSX", 0, 0, 0, 0, -19, 0, -3, -22
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useChatroomDashboard.js", "JavaScript", 0, -30, 0, 0, 0, 0, -8, -38
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useDashboard.js", "JavaScript", 0, -65, 0, 0, 0, 0, -13, -78
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useLogin.js", "JavaScript", 0, -29, 0, 0, 0, 0, -9, -38
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useUserDashboard.js", "JavaScript", 0, -30, 0, 0, 0, 0, -10, -40
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/index.css", "CSS", 0, 0, 0, -61, 0, -3, -18, -82
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/index.js", "JavaScript", 0, -13, 0, 0, 0, 0, -4, -17
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/pages/Login.jsx", "JavaScript JSX", 0, 0, 0, 0, -60, 0, -15, -75
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/pages/Main.jsx", "JavaScript JSX", 0, 0, 0, 0, -108, 0, -8, -116
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/utils/jotai.js", "JavaScript", 0, -2, 0, 0, 0, 0, -2, -4
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/.env", "Properties", 0, 0, 3, 0, 0, 0, 0, 3
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/controllers/adminController.js", "JavaScript", 0, 171, 0, 0, 0, 1, 34, 206
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/controllers/chatroomController.js", "JavaScript", 0, 51, 0, 0, 0, 3, 20, 74
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/controllers/userController.js", "JavaScript", 0, 28, 0, 0, 0, 4, 13, 45
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/models/adminModel.js", "JavaScript", 0, 47, 0, 0, 0, 2, 19, 68
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/models/chatroomModel.js", "JavaScript", 0, 139, 0, 0, 0, 3, 28, 170
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/models/dashboardModel.js", "JavaScript", 0, 79, 0, 0, 0, 0, 21, 100
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/models/userModel.js", "JavaScript", 0, 147, 0, 0, 0, 4, 44, 195
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/package-lock.json", "JSON", 3505, 0, 0, 0, 0, 0, 1, 3506
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/package.json", "JSON", 27, 0, 0, 0, 0, 0, 1, 28
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/routes/admin.js", "JavaScript", 0, 35, 0, 0, 0, 1, 7, 43
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/routes/chatroom.js", "JavaScript", 0, 6, 0, 0, 0, 0, 4, 10
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/routes/user.js", "JavaScript", 0, 6, 0, 0, 0, 2, 5, 13
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/server.js", "JavaScript", 0, 26, 0, 0, 0, 0, 8, 34
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/backend/vercel.json", "JSON", 15, 0, 0, 0, 0, 0, 1, 16
+"Total", "-", 3547, 548, 3, -61, -444, 16, 79, 3688

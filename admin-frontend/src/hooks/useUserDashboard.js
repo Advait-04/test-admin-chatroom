@@ -6,10 +6,10 @@ export const useUserDashboard = () => {
     const [userDashboard, setUserDashboard] = useState(null);
 
     const getUserDashboard = async (user) => {
+        console.log("called getUserDashboard");
+
         setIsLoading(true);
         setError(null);
-
-        console.log("called");
 
         const userResponse = await fetch(`/api/admin/getuser/${user}`, {
             method: "GET",
@@ -19,8 +19,6 @@ export const useUserDashboard = () => {
         });
 
         const userJson = await userResponse.json();
-
-        console.log(userJson);
 
         if (!userResponse.ok) {
             console.log("error");
@@ -33,6 +31,8 @@ export const useUserDashboard = () => {
             setError(null);
             setIsLoading(false);
         }
+
+        console.log("finished executing getUserDashboard");
     };
 
     return { error, isLoading, userDashboard, getUserDashboard };

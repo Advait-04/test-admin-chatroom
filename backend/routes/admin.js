@@ -15,6 +15,8 @@ const {
     addConcurrentUser,
     removeConcurrentUser,
     getAllUser,
+    getChatrooms,
+    getChatroom,
 } = require("../controllers/adminController");
 
 router.patch("/api/admin/updateuserchatrooms", updateChatrooms);
@@ -34,6 +36,7 @@ router.get("/api/admin/getbottomuser", getBottomUser);
 router.get("/api/admin/getdashboarditem", getDashboardItem);
 router.get("/api/admin/getuser/:user", getUser);
 router.get("/api/admin/getuser", getAllUser);
-router.get("/api/admin/getchatrooms");
+router.get("/api/admin/getchatrooms", getChatrooms);
+router.get("/api/admin/getchatrooms/:chatroom", getChatroom);
 
 module.exports = router;

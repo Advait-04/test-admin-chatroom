@@ -80,8 +80,6 @@ chatroomSchema.statics.sendChat = async function (room, user, text) {
 
         return chat;
     } else {
-        console.log("hello");
-
         const logObj = {
             totalchats: 0,
             topuser: {},
@@ -112,11 +110,14 @@ chatroomSchema.statics.retrieveChat = async function (room) {
 chatroomSchema.statics.updateLogs = async function (room) {
     const chatroom = await this.findOne({ room });
 
+    console.log("yup this is the:", chatroom);
+
     if (!chatroom) {
         throw Error("Chatroom does not exist");
     }
 
     const userFreq = await this.aggregate([
+        { $match: { room } },
         { $unwind: "$chat" },
         { $sortByCount: "$chat.user" },
     ]);
@@ -124,8 +125,6 @@ chatroomSchema.statics.updateLogs = async function (room) {
     if (!userFreq) {
         throw Error("DB aggregation error");
     }
-
-    console.log(chatroom);
 
     const item = await this.updateOne(
         { room },
@@ -145,6 +144,26 @@ chatroomSchema.statics.updateLogs = async function (room) {
     );
 
     return item;
+};
+
+chatroomSchema.statics.getChatrooms = async function () {
+    const chatrooms = await this.find({}, { room: 1 });
+
+    if (!chatrooms) {
+        throw Error("Internal error");
+    }
+
+    return chatrooms;
+};
+
+chatroomSchema.statics.getChatroom = async function (chatroom) {
+    const chatroomObject = await this.findOne({ room: chatroom });
+
+    if (!chatroomObject) {
+        throw Error("Such a room does not exist");
+    }
+
+    return chatroomObject;
 };
 
 module.exports = mongoose.model("Chatroom", chatroomSchema);

@@ -13,7 +13,7 @@ function App() {
     return (
         <div className="app d-flex flex-column ">
             <Navbar />
-            <div className="main d-flex flex-column align-items-center  justify-content-center p-2 overflow-scroll container-fluid ">
+            <div className="main d-flex flex-column align-items-center justify-content-center p-2 mt-2">
                 {login ? <Main /> : <Login />}
             </div>
         </div>

@@ -1,6 +1,7 @@
 const User = require("../models/userModel");
 const Admin = require("../models/adminModel");
 const Dashboard = require("../models/dashboardModel");
+const Chatroom = require("../models/chatroomModel");
 
 const updateChatrooms = async (req, res) => {
     const { email, chatrooms } = req.body;
@@ -32,6 +33,15 @@ const updateTotalUsage = async (req, res) => {
 
     try {
         const update = await User.updateTotalUsage(email, updateValue);
+
+        const topUser = await User.getTopUser();
+        const bottomUser = await User.getBottomUser();
+
+        const dashboardUpdate = await Dashboard.updateTopAndBottom(
+            topUser,
+            bottomUser
+        );
+
         res.status(200).json(update);
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -156,6 +166,26 @@ const getAllUser = async (req, res) => {
     }
 };
 
+const getChatrooms = async (req, res) => {
+    try {
+        const chatrooms = await Chatroom.getChatrooms();
+        res.status(200).json(chatrooms);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+const getChatroom = async (req, res) => {
+    const { chatroom } = req.params;
+
+    try {
+        const chatroomObject = await Chatroom.getChatroom(chatroom);
+        res.status(200).json(chatroomObject);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     updateChatrooms,
     updateNoOfTotalChats,
@@ -170,4 +200,6 @@ module.exports = {
     addConcurrentUser,
     removeConcurrentUser,
     getAllUser,
+    getChatrooms,
+    getChatroom,
 };

@@ -5,6 +5,7 @@ export const useDashboard = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [dashboardItem, setDashboardItem] = useState(null);
     const [userList, setUserList] = useState(null);
+    const [chatroomList, setChatroomList] = useState(null);
 
     const getDashboard = async () => {
         setIsLoading(true);
@@ -28,20 +29,49 @@ export const useDashboard = () => {
 
         const usersJson = await usersResponse.json();
 
-        if (!dashboardResponse.ok || !usersResponse.ok) {
-            setError(
-                !dashboardResponse.ok ? dashboardJson.error : usersJson.error
-            );
+        const chatroomsResponse = await fetch("/api/admin/getchatrooms", {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+
+        const chatroomsJson = await chatroomsResponse.json();
+
+        if (
+            !dashboardResponse.ok ||
+            !usersResponse.ok ||
+            !chatroomsResponse.ok
+        ) {
+            if (!dashboardResponse.ok) {
+                setError(dashboardJson.error);
+            } else {
+                if (!usersResponse.ok) {
+                    setError(usersJson.error);
+                }
+
+                if (!chatroomsResponse.ok) {
+                    setError(chatroomsJson.error);
+                }
+            }
             setIsLoading(false);
         }
 
-        if (dashboardResponse.ok && usersResponse.ok) {
+        if (dashboardResponse.ok && usersResponse.ok && chatroomsResponse.ok) {
             setError(null);
             setIsLoading(false);
             setDashboardItem(dashboardJson);
             setUserList(usersJson);
+            setChatroomList(chatroomsJson);
         }
     };
 
-    return { error, isLoading, getDashboard, dashboardItem, userList };
+    return {
+        error,
+        isLoading,
+        getDashboard,
+        dashboardItem,
+        userList,
+        chatroomList,
+    };
 };

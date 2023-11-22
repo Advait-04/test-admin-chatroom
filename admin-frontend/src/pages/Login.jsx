@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Spinner from "react-bootstrap/Spinner";
 
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 
 import { useLogin } from "../hooks/useLogin";

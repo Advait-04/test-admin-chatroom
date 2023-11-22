@@ -3,7 +3,7 @@
 * {
     font-family: "VT323", sans-serif;
     background-color: white;
-    padding: 0;
+    padding: 1 !important;
     margin: 0;
 }
 
@@ -16,9 +16,9 @@
     height: 12vh;
 }
 
-.main {
+/* .main {
     height: 88vh;
-}
+} */
 
 .login {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -37,4 +37,45 @@
 
 .spinner {
     height: 10% !important;
+}
+
+@media screen and (max-width: 576px) {
+    .panel-row-1 {
+        display: flex;
+        flex-direction: column;
+
+        width: 100%;
+    }
+
+    .blocks {
+        width: 100% !important;
+    }
+
+    .chatroom-stats {
+        width: 100% !important;
+    }
+
+    .chatroom-dashbaord-div {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .user-stats-main {
+        display: flex;
+        flex-direction: column !important;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .main-stats {
+        width: 100% !important;
+    }
+
+    .main-stats-div {
+        width: 50% !important;
+    }
+
+    .chatroom-stats {
+        width: 50% !important;
+    }
 }

@@ -1,0 +1,18 @@
+"filename", "language", "JavaScript", "CSS", "JavaScript JSX", "comment", "blank", "total"
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/App.js", "JavaScript", 18, 0, 0, 0, 6, 24
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/ChatroomDashboard.jsx", "JavaScript JSX", 0, 0, 96, 0, 9, 105
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/ChatroomDropdown.jsx", "JavaScript JSX", 0, 0, 19, 0, 3, 22
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/Dashboard.jsx", "JavaScript JSX", 0, 0, 45, 1, 4, 50
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/Navbar.jsx", "JavaScript JSX", 0, 0, 19, 0, 5, 24
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/UserDashboard.jsx", "JavaScript JSX", 0, 0, 78, 0, 10, 88
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/components/UserDropdown.jsx", "JavaScript JSX", 0, 0, 19, 0, 3, 22
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useChatroomDashboard.js", "JavaScript", 30, 0, 0, 0, 8, 38
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useDashboard.js", "JavaScript", 65, 0, 0, 0, 13, 78
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useLogin.js", "JavaScript", 29, 0, 0, 0, 9, 38
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/hooks/useUserDashboard.js", "JavaScript", 30, 0, 0, 0, 10, 40
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/index.css", "CSS", 0, 61, 0, 3, 18, 82
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/index.js", "JavaScript", 13, 0, 0, 0, 4, 17
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/pages/Login.jsx", "JavaScript JSX", 0, 0, 60, 0, 15, 75
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/pages/Main.jsx", "JavaScript JSX", 0, 0, 108, 0, 8, 116
+"/media/advait/Common Volume/Webdev/Projects/MERN/chat-room/admin-frontend/src/utils/jotai.js", "JavaScript", 2, 0, 0, 0, 2, 4
+"Total", "-", 187, 61, 444, 4, 127, 823
