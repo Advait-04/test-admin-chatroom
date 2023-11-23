@@ -41,10 +41,6 @@ adminSchema.statics.signup = async function (username, password) {
 
 //static login method
 adminSchema.statics.login = async function (username, password) {
-    console.log(username, password);
-
-    console.log("hello");
-
     if (!username || !password) {
         throw Error("All fields must be filled");
     }

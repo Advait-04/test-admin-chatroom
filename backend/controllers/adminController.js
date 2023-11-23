@@ -1,3 +1,7 @@
+require("dotenv").config();
+
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/userModel");
 const Admin = require("../models/adminModel");
 const Dashboard = require("../models/dashboardModel");
@@ -17,8 +21,6 @@ const updateChatrooms = async (req, res) => {
 
 const updateNoOfTotalChats = async (req, res) => {
     const { email, updateValue } = req.body;
-
-    // console.log(email, value);
 
     try {
         const update = await User.updateNoOfTotalChats(email, updateValue);
@@ -53,7 +55,16 @@ const adminLogin = async (req, res) => {
 
     try {
         const admin = await Admin.login(username, password);
-        res.status(200).json(admin);
+
+        const authToken = jwt.sign(
+            { username, priv: "admin" },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: "1h",
+            }
+        );
+
+        res.status(200).json({ authToken });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
@@ -134,8 +145,6 @@ const getUser = async (req, res) => {
 const addConcurrentUser = async (req, res) => {
     const { user } = req.body;
 
-    console.log(user);
-
     try {
         const users = await Dashboard.addConcurrentUser(user);
         res.status(200).json(users);
@@ -146,8 +155,6 @@ const addConcurrentUser = async (req, res) => {
 
 const removeConcurrentUser = async (req, res) => {
     const { user } = req.body;
-
-    console.log(user);
 
     try {
         const users = await Dashboard.removeConcurrentUser(user);

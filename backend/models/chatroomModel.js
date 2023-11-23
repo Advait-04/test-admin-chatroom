@@ -110,8 +110,6 @@ chatroomSchema.statics.retrieveChat = async function (room) {
 chatroomSchema.statics.updateLogs = async function (room) {
     const chatroom = await this.findOne({ room });
 
-    console.log("yup this is the:", chatroom);
-
     if (!chatroom) {
         throw Error("Chatroom does not exist");
     }

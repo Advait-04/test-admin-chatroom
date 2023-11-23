@@ -7,8 +7,6 @@ export const useLogout = () => {
         const user = JSON.parse(localStorage.getItem("user"));
         const logs = JSON.parse(localStorage.getItem("logs"));
 
-        console.log(Math.floor(Date.now() / 1000) - logs.loginTime);
-
         //updating the stats for each user
         //updating user total usage
         const totalUsageUpdate = await fetch(

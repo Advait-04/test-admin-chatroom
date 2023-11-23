@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { loginAtom } from "./../utils/jotai";
 import { useAtom } from "jotai";
+import aes from "crypto-js/aes";
 
 export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
+
+    const secret = "KllPI7zmhucBQYu";
 
     const login = async (username, password) => {
         setIsLoading(true);
@@ -29,7 +32,10 @@ export const useLogin = () => {
             setError(null);
             setIsLoading(false);
 
-            localStorage.setItem("login", {});
+            localStorage.setItem(
+                "login",
+                aes.encrypt(JSON.stringify(json), secret).toString()
+            );
         }
     };
 

@@ -47,7 +47,6 @@ const sendChat = async (req, res) => {
 
         res.status(200).send(chat);
     } catch (error) {
-        console.log(error);
         res.status(400).json({ error: error.message });
     }
 };

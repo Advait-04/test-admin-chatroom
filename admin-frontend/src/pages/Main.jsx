@@ -9,11 +9,14 @@ import UserDropdown from "../components/UserDropdown";
 import ChatroomDropdown from "../components/ChatroomDropdown";
 import ChatroomDashboard from "../components/ChatroomDashboard";
 
+import { loginAtom } from "../utils/jotai";
+import { useAtom } from "jotai";
+
 const Main = () => {
     const {
         getDashboard,
-        error: dashboardError,
-        isLoading: dashboardLoading,
+        error,
+        isLoading,
         dashboardItem,
         userList,
         chatroomList,
@@ -22,13 +25,27 @@ const Main = () => {
     const [currentUser, setCurrentUser] = useState();
     const [currentChatroom, setCurrentChatroom] = useState();
 
+    const [login, setLogin] = useAtom(loginAtom);
+    const [mainDashboardIntervalID, setMainDashboardIntervalID] =
+        useState(null);
+
     useEffect(() => {
         const getDashboardItems = () => {
             getDashboard();
         };
 
-        setInterval(getDashboardItems, 1000);
+        setMainDashboardIntervalID(setInterval(getDashboardItems, 1000));
     }, []);
+
+    useEffect(() => {
+        if (error !== null) {
+            if (error === "access denied" || error.includes("jwt")) {
+                localStorage.removeItem("login");
+                clearInterval(mainDashboardIntervalID);
+                setLogin(false);
+            }
+        }
+    }, [error]);
 
     return (
         <div className="p-4 align-self-baseline container-fluid">

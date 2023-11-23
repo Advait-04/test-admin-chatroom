@@ -111,8 +111,6 @@ userSchema.statics.updateNoOfTotalChats = async function (email, updateValue) {
         throw Error("Update Field not entered");
     }
 
-    // console.log(typeof updateValue);
-
     const update = await this.updateOne(
         { email },
         {

@@ -38,7 +38,7 @@ const Login = () => {
     }, [error]);
 
     return (
-        <Form className="login p-5 fs-5" onSubmit={handleSubmit}>
+        <Form className="login p-5 fs-5 mt-5" onSubmit={handleSubmit}>
             <h3 className="text-center mb-4 fs-3 mt-4">-- Login --</h3>
             <Form.Group className="mb-3">
                 <Form.Label>Username</Form.Label>
@@ -63,7 +63,9 @@ const Login = () => {
                 disabled={error}
                 variant={buttonVarient}
                 type="submit"
-                className={`mt-4 w-100 fs-5 d-flex align-items-center justify-content-center p-2`}
+                className={`mt-4 w-100 fs-5 d-flex align-items-center justify-content-center p-2 ${
+                    isLoading ? "for-loading" : ""
+                }`}
             >
                 {isLoading ? <Spinner /> : `Login`}
             </Button>

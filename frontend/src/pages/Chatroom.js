@@ -53,8 +53,6 @@ const Chatroom = () => {
         e.preventDefault();
 
         try {
-            console.log(`room: ${room}, user: ${user}, text: ${text}`);
-
             const response = await fetch("/api/chats/sendchat", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
@@ -64,8 +62,6 @@ const Chatroom = () => {
             console.log(response);
 
             if (localStorage.getItem("logs") && response.ok) {
-                console.log("inside update");
-
                 const logs = JSON.parse(localStorage.getItem("logs"));
 
                 logs.totalChats = logs.totalChats + 1;

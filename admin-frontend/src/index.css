@@ -79,3 +79,7 @@
         width: 50% !important;
     }
 }
+
+.for-loading {
+    background-color: white !important;
+}

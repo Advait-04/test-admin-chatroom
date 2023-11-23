@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 
 const Dashboard = ({ dashboardItem }) => {
-    // console.log(dashboardItem);
     const { concurrentusers, topuser, bottomuser } = dashboardItem;
 
     return (

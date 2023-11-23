@@ -6,9 +6,16 @@ import Main from "./pages/Main";
 import Login from "./pages/Login";
 
 import { loginAtom } from "./utils/jotai";
+import { useLayoutEffect } from "react";
 
 function App() {
     const [login, setLogin] = useAtom(loginAtom);
+
+    useLayoutEffect(() => {
+        if (localStorage.getItem("login")) {
+            setLogin(true);
+        }
+    }, []);
 
     return (
         <div className="app d-flex flex-column ">

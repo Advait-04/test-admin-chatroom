@@ -59,15 +59,12 @@ dashboardSchema.statics.addConcurrentUser = async function (user) {
 
     const itemId = latestItem[0]._id.valueOf();
 
-    console.log(user);
-
     const update = await this.findByIdAndUpdate(
         { _id: itemId },
         { $addToSet: { concurrentusers: user } },
         { new: true }
     );
 
-    console.log(update);
     return update;
 };
 

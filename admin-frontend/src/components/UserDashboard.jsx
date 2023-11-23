@@ -32,13 +32,10 @@ const UserDashboard = ({ user }) => {
     }, [user]);
 
     useEffect(() => {
-        console.log("inside useeffect");
         setReqSpinner(false);
     });
 
     useLayoutEffect(() => {
-        console.log("inside useeffect");
-
         setReqSpinner(true);
     }, [user]);
 

@@ -31,13 +31,10 @@ const ChatroomDashboard = ({ chatroom }) => {
     }, [chatroom]);
 
     useEffect(() => {
-        console.log("inside useeffect");
         setReqSpinner(false);
     });
 
     useLayoutEffect(() => {
-        console.log("inside useeffect");
-
         setReqSpinner(true);
     }, [chatroom]);
 
