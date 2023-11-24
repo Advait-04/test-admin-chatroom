@@ -19,13 +19,13 @@ const {
     getChatroom,
 } = require("../controllers/adminController");
 
-router.patch("/updateusernooftotalchats", updateNoOfTotalChats);
+// router.patch("/updateusernooftotalchats", updateNoOfTotalChats);
 
-router.post("/auth/signup", adminSignup);
-router.post("/adddashboarditem", addDashboardItem);
+// router.post("/auth/signup", adminSignup);
+// router.post("/adddashboarditem", addDashboardItem);
 
-router.get("/gettopuser", getTopUser);
-router.get("/getbottomuser", getBottomUser);
+// router.get("/gettopuser", getTopUser);
+// router.get("/getbottomuser", getBottomUser);
 
 // --needed-- endpoints for frontend below
 
