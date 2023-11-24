@@ -16,7 +16,11 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use(cors());
 
+app.get("/", (req, res) => {
+    res.status(200).send("Hello");
+});
 app.use("/api", userRoutes);
 app.use("/api/chats", chatRoutes);
 app.use("/api/admin", adminRoutes);
