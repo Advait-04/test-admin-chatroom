@@ -19,27 +19,27 @@ const {
     getChatroom,
 } = require("../controllers/adminController");
 
-router.patch("/api/admin/updateusernooftotalchats", updateNoOfTotalChats);
+router.patch("/updateusernooftotalchats", updateNoOfTotalChats);
 
-router.post("/api/admin/auth/signup", adminSignup);
-router.post("/api/admin/adddashboarditem", addDashboardItem);
+router.post("/auth/signup", adminSignup);
+router.post("/adddashboarditem", addDashboardItem);
 
-router.get("/api/admin/gettopuser", getTopUser);
-router.get("/api/admin/getbottomuser", getBottomUser);
+router.get("/gettopuser", getTopUser);
+router.get("/getbottomuser", getBottomUser);
 
 // --needed-- endpoints for frontend below
 
-router.patch("/api/admin/updateusertotalusage", updateTotalUsage);
-router.patch("/api/admin/updateuserchatrooms", updateChatrooms);
+router.patch("/updateusertotalusage", updateTotalUsage);
+router.patch("/updateuserchatrooms", updateChatrooms);
 
-router.post("/api/admin/auth/login", adminLogin);
-router.post("/api/admin/addconcurrentuser", addConcurrentUser);
-router.post("/api/admin/removeconcurrentuser", removeConcurrentUser);
+router.post("/auth/login", adminLogin);
+router.post("/addconcurrentuser", addConcurrentUser);
+router.post("/removeconcurrentuser", removeConcurrentUser);
 
-router.get("/api/admin/getdashboarditem", verifyToken, getDashboardItem);
-router.get("/api/admin/getuser/:user", verifyToken, getUser);
-router.get("/api/admin/getuser", verifyToken, getAllUser);
-router.get("/api/admin/getchatrooms", verifyToken, getChatrooms);
-router.get("/api/admin/getchatrooms/:chatroom", verifyToken, getChatroom);
+router.get("/getdashboarditem", verifyToken, getDashboardItem);
+router.get("/getuser/:user", verifyToken, getUser);
+router.get("/getuser", verifyToken, getAllUser);
+router.get("/getchatrooms", verifyToken, getChatrooms);
+router.get("/getchatrooms/:chatroom", verifyToken, getChatroom);
 
 module.exports = router;

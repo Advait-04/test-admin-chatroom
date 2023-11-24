@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { sendChat, retrieveChat } = require("../controllers/chatroomController");
 
-router.get("/api/chats/retrievechat/:room", retrieveChat);
-router.post("/api/chats/sendchat", sendChat);
+router.get("/retrievechat/:room", retrieveChat);
+router.post("/sendchat", sendChat);
 
 module.exports = router;

@@ -61,6 +61,7 @@ export const useDashboard = () => {
             !chatroomsResponse.ok
         ) {
             if (!dashboardResponse.ok) {
+                console.log(dashboardResponse);
                 setError(dashboardJson.error);
             } else {
                 if (!usersResponse.ok) {
