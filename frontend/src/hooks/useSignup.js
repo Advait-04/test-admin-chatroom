@@ -15,7 +15,15 @@ export const useSignup = () => {
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({
+                    email,
+                    password,
+                    logs: {
+                        chatrooms: [],
+                        nooftotalchats: 0,
+                        totalusage: 0,
+                    },
+                }),
             }
         );
 
