@@ -13,7 +13,9 @@ const Chatroom = () => {
     const bottomRef = useRef(null);
 
     const refreshChat = async (room) => {
-        const response = await fetch(`/api/chats/retrievechat/${room}`);
+        const response = await fetch(
+            `https://mern-chatroom-backend.vercel.app/api/chats/retrievechat/${room}`
+        );
 
         const json = await response.json();
 
@@ -30,16 +32,19 @@ const Chatroom = () => {
         setInterval(async () => await refreshChat(room), 1000);
 
         const updateVisitedChat = async () => {
-            const response = await fetch("/api/admin/updateuserchatrooms", {
-                method: "PATCH",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: user.email,
-                    chatrooms: room,
-                }),
-            });
+            const response = await fetch(
+                "https://mern-chatroom-backend.vercel.app/api/admin/updateuserchatrooms",
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        email: user.email,
+                        chatrooms: room,
+                    }),
+                }
+            );
         };
 
         updateVisitedChat();
@@ -53,11 +58,14 @@ const Chatroom = () => {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/chats/sendchat", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ room, user: user.email, text }),
-            });
+            const response = await fetch(
+                "https://mern-chatroom-backend.vercel.app/api/chats/sendchat",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ room, user: user.email, text }),
+                }
+            );
 
             console.log(response);
 

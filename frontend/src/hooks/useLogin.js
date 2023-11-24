@@ -10,11 +10,14 @@ export const useLogin = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("/api/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
+        const response = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/login",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            }
+        );
 
         const json = await response.json();
 
@@ -42,11 +45,14 @@ export const useLogin = () => {
             dispatch({ type: "LOGIN", payload: json });
 
             //setting concurrent user
-            const concResponse = await fetch("/api/admin/addconcurrentuser", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ user: email }),
-            });
+            const concResponse = await fetch(
+                "https://mern-chatroom-backend.vercel.app/api/admin/addconcurrentuser",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ user: email }),
+                }
+            );
 
             const concJson = await concResponse.json();
 

@@ -1,5 +1,4 @@
 {
-    "proxy": "https://mern-chatroom-backend.vercel.app/",
     "name": "admin-frontend",
     "version": "0.1.0",
     "private": true,
