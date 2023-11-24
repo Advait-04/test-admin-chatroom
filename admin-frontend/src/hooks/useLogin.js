@@ -7,7 +7,7 @@ export const useLogin = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
 
-    const secret = "KllPI7zmhucBQYu";
+    const secret = process.env.REACT_APP_SECRET;
 
     const login = async (username, password) => {
         setIsLoading(true);

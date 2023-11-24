@@ -6,7 +6,7 @@ export const useUserDashboard = () => {
     const [isLoading, setIsLoading] = useState(null);
     const [userDashboard, setUserDashboard] = useState(null);
 
-    const secret = "KllPI7zmhucBQYu";
+    const secret = process.env.REACT_APP_SECRET;
 
     const getUserDashboard = async (user) => {
         setIsLoading(true);

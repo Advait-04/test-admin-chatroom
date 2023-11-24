@@ -5,7 +5,7 @@ export const useChatroomDashboard = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
     const [chatroomDashboard, setChatroomDashboard] = useState(null);
-    const secret = "KllPI7zmhucBQYu";
+    const secret = process.env.REACT_APP_SECRET;
 
     const getChatroomDashboard = async (chatroom) => {
         setIsLoading(true);

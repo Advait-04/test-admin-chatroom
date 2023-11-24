@@ -8,7 +8,7 @@ export const useDashboard = () => {
     const [userList, setUserList] = useState(null);
     const [chatroomList, setChatroomList] = useState(null);
 
-    const secret = "KllPI7zmhucBQYu";
+    const secret = process.env.REACT_APP_SECRET;
 
     const getDashboard = async () => {
         setIsLoading(true);
