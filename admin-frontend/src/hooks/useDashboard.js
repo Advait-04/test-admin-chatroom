@@ -25,33 +25,42 @@ export const useDashboard = () => {
             ).toString(CryptoJS.enc.Utf8)
         ).authToken;
 
-        const dashboardResponse = await fetch("/api/admin/getdashboarditem", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const dashboardResponse = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/admin/getdashboarditem",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         const dashboardJson = await dashboardResponse.json();
 
-        const usersResponse = await fetch("/api/admin/getuser", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const usersResponse = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/admin/getuser",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         const usersJson = await usersResponse.json();
 
-        const chatroomsResponse = await fetch("/api/admin/getchatrooms", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const chatroomsResponse = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/admin/getchatrooms",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         const chatroomsJson = await chatroomsResponse.json();
 

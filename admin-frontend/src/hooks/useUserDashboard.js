@@ -23,13 +23,16 @@ export const useUserDashboard = () => {
             ).toString(CryptoJS.enc.Utf8)
         ).authToken;
 
-        const userResponse = await fetch(`/api/admin/getuser/${user}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const userResponse = await fetch(
+            `https://mern-chatroom-backend.vercel.app/api/admin/getuser/${user}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         const userJson = await userResponse.json();
 
