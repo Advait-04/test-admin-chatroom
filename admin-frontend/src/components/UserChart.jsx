@@ -37,8 +37,6 @@ export default function UserChart({ currentUser }) {
         if (currentUser) {
             const chartInterval = setInterval(() => {
                 getUserDashboard(currentUser).then((obj) => {
-                    console.log("logging: ", obj);
-
                     if (obj) {
                         if (_.isEqual(obj, userDashboard)) {
                         } else {

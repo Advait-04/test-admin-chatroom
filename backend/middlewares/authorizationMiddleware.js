@@ -2,8 +2,6 @@ require("dotenv").config();
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-    console.log("middleware accessed");
-
     const authHeader = req.header("Authorization");
     const token = authHeader.split(" ")[1];
 
