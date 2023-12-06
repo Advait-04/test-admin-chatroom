@@ -10,11 +10,14 @@ export const useSignup = () => {
         setIsLoading(true);
         setError(null);
 
-        const response = await fetch("/api/signup", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
+        const response = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/signup",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+            }
+        );
 
         const json = await response.json();
 

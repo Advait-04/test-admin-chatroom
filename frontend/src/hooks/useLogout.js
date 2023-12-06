@@ -10,7 +10,7 @@ export const useLogout = () => {
         //updating the stats for each user
         //updating user total usage
         const totalUsageUpdate = await fetch(
-            "/api/admin/updateusertotalusage",
+            "https://mern-chatroom-backend.vercel.app/api/admin/updateusertotalusage",
             {
                 method: "PATCH",
                 headers: {
@@ -23,11 +23,14 @@ export const useLogout = () => {
             }
         );
 
-        const removeConc = await fetch("/api/admin/removeconcurrentuser", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user: user.email }),
-        });
+        const removeConc = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/admin/removeconcurrentuser",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user: user.email }),
+            }
+        );
 
         //remove user from storage
         localStorage.removeItem("user");

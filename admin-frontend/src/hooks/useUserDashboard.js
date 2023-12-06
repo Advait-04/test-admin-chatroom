@@ -23,7 +23,7 @@ export const useUserDashboard = () => {
         ).authToken;
 
         const userDashboardResponse = await fetch(
-            `/api/admin/getuserdashboard/${user}`,
+            `https://mern-chatroom-backend.vercel.app/api/admin/getuserdashboard/${user}`,
             {
                 method: "GET",
                 headers: {

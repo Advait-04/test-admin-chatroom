@@ -22,13 +22,16 @@ export const useUserList = () => {
             ).toString(CryptoJS.enc.Utf8)
         ).authToken;
 
-        const userListResponse = await fetch("/api/admin/getuser", {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const userListResponse = await fetch(
+            "https://mern-chatroom-backend.vercel.app/api/admin/getuser",
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
         const userListJson = await userListResponse.json();
 
