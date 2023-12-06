@@ -17,6 +17,8 @@ const {
     getAllUser,
     getChatrooms,
     getChatroom,
+    getChatroomDashboard,
+    getUserDashboard,
 } = require("../controllers/adminController");
 
 router.patch("/updateusernooftotalchats", updateNoOfTotalChats);
@@ -41,5 +43,11 @@ router.get("/getuser/:user", verifyToken, getUser);
 router.get("/getuser", verifyToken, getAllUser);
 router.get("/getchatrooms", verifyToken, getChatrooms);
 router.get("/getchatrooms/:chatroom", verifyToken, getChatroom);
+router.get(
+    "/getchatroomdashboard/:chatroom",
+    verifyToken,
+    getChatroomDashboard
+);
+router.get("/getuserdashboard/:email", verifyToken, getUserDashboard);
 
 module.exports = router;

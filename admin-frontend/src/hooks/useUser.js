@@ -1,13 +1,24 @@
 import { useState } from "react";
 import * as CryptoJS from "crypto-js";
 
-export const useDashboard = () => {
+export const useUser = (email) => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
 
+    const [user, setUser] = useState({
+        _id: "",
+        email: "",
+        password: "",
+        logs: {
+            chatrooms: [],
+            nooftotalchats: "",
+            totalusage: "",
+        },
+    });
+
     const secret = "KllPI7zmhucBQYu";
 
-    const getDashboard = async () => {
+    const getUser = async () => {
         setIsLoading(true);
         setError(null);
 
@@ -22,7 +33,7 @@ export const useDashboard = () => {
             ).toString(CryptoJS.enc.Utf8)
         ).authToken;
 
-        const dashboardResponse = await fetch("/api/admin/getdashboarditem", {
+        const userResponse = await fetch(`api/admin/getuser/${email}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -30,22 +41,22 @@ export const useDashboard = () => {
             },
         });
 
-        const dashboardJson = await dashboardResponse.json();
+        const userJson = await userResponse.json();
 
-        if (!dashboardResponse.ok) {
-            setError(dashboardJson.error);
+        if (!userResponse.ok) {
             setIsLoading(false);
+            setError(userJson.error);
         } else {
             setError(null);
             setIsLoading(false);
-
-            return dashboardJson;
+            setUser(userJson);
         }
     };
 
     return {
         error,
         isLoading,
-        getDashboard,
+        user,
+        getUser,
     };
 };

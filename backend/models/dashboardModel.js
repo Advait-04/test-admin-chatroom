@@ -45,7 +45,12 @@ dashboardSchema.statics.addDashboardItem = async function (
 };
 
 dashboardSchema.statics.getDashboardItem = async function () {
-    const items = await this.find({}).sort({ _id: -1 }).limit(1);
+    const items = await this.find(
+        {},
+        { _id: 0, "topuser._id": 0, "bottomuser._id": 0, __v: 0 }
+    )
+        .sort({ _id: -1 })
+        .limit(1);
 
     if (!items) {
         throw Error("No dashboard items");

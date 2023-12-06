@@ -4,7 +4,6 @@ import * as CryptoJS from "crypto-js";
 export const useUserDashboard = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const [userDashboard, setUserDashboard] = useState(null);
 
     const secret = "KllPI7zmhucBQYu";
 
@@ -23,27 +22,33 @@ export const useUserDashboard = () => {
             ).toString(CryptoJS.enc.Utf8)
         ).authToken;
 
-        const userResponse = await fetch(`/api/admin/getuser/${user}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            },
-        });
+        const userDashboardResponse = await fetch(
+            `/api/admin/getuserdashboard/${user}`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
 
-        const userJson = await userResponse.json();
+        const userDashboardJSON = await userDashboardResponse.json();
 
-        if (!userResponse.ok) {
-            setError(userJson.error);
+        if (!userDashboardResponse.ok) {
+            setError(userDashboardJSON.error);
             setIsLoading(false);
-        }
-
-        if (userResponse.ok) {
-            setUserDashboard(userJson[0]);
+        } else {
             setError(null);
             setIsLoading(false);
+
+            return userDashboardJSON;
         }
     };
 
-    return { error, isLoading, userDashboard, getUserDashboard };
+    return {
+        error,
+        isLoading,
+        getUserDashboard,
+    };
 };

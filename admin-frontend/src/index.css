@@ -16,10 +16,6 @@
     height: 12vh;
 }
 
-/* .main {
-    height: 88vh;
-} */
-
 .login {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     width: 23rem;
@@ -33,10 +29,6 @@
 
 .for-loading {
     background-color: white !important;
-}
-
-.spinner {
-    height: 10% !important;
 }
 
 @media screen and (max-width: 576px) {
@@ -80,6 +72,39 @@
     }
 }
 
-.for-loading {
-    background-color: white !important;
+.main-panel {
+    align-self: baseline;
+}
+
+.main-panel .blocks-1 {
+    background: rgb(109, 128, 254);
+    background: linear-gradient(
+        45deg,
+        rgba(109, 128, 254, 1) 1%,
+        rgba(35, 210, 253, 1) 71%
+    );
+
+    color: white;
+}
+
+.blocks-2 {
+    background: rgb(45, 212, 191);
+    background: linear-gradient(
+        45deg,
+        rgba(34, 197, 94, 1) 0%,
+        rgba(45, 212, 191, 1) 100%
+    );
+
+    color: white;
+}
+
+.blocks-3 {
+    background: rgb(248, 113, 113);
+    background: linear-gradient(
+        45deg,
+        rgba(220, 38, 38, 1) 0%,
+        rgba(248, 113, 113, 1) 100%
+    );
+
+    color: white;
 }

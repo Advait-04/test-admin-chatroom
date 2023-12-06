@@ -11,8 +11,8 @@ const Navbar = () => {
     };
 
     return (
-        <header className="navbar d-flex justify-content-between align-items-center  px-5">
-            <h3>Admin Panel</h3>
+        <header className="navbar d-flex justify-content-between align-items-center px-5">
+            <h3 className="fs-2 mb-0">Admin Panel</h3>
             <Button variant="danger" onClick={handleClick} hidden={!loginState}>
                 Log Out
             </Button>

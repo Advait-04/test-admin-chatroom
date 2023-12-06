@@ -1,132 +1,224 @@
-import { useEffect, useRef, useState } from "react";
-import { useDashboard } from "../hooks/useDashboard";
-import Dashboard from "../components/Dashboard";
+import { useEffect, useLayoutEffect, useState } from "react";
+import _ from "lodash";
 
+import ActiveCard from "../components/ActiveCard";
 import Dropdown from "react-bootstrap/Dropdown";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import UserDashboard from "../components/UserDashboard";
-import UserDropdown from "../components/UserDropdown";
-import ChatroomDropdown from "../components/ChatroomDropdown";
-import ChatroomDashboard from "../components/ChatroomDashboard";
+import DropdownComponent from "../components/DropdownComponent";
+import ChatroomChart from "../components/ChatroomChart";
+import UserChart from "../components/UserChart";
 
-import { loginAtom } from "../utils/jotai";
+import { useDashboard } from "../hooks/useDashboard";
+import { useChatroomList } from "../hooks/useChatroomList";
+import { useChatroomDashboard } from "../hooks/useChatroomDashboard";
+import { useUserList } from "../hooks/useUserList";
+
 import { useAtom } from "jotai";
+import { dashboardAtom, chatroomListAtom, userListAtom } from "../utils/jotai";
 
-const Main = () => {
+import { RxAvatar } from "react-icons/rx";
+import { TfiTime } from "react-icons/tfi";
+
+export default function Main() {
     const {
+        error: dashboardItemError,
         getDashboard,
-        error,
-        isLoading,
-        dashboardItem,
-        userList,
-        chatroomList,
+        isLoading: dashboardItemLoading,
     } = useDashboard();
 
-    const [currentUser, setCurrentUser] = useState();
-    const [currentChatroom, setCurrentChatroom] = useState();
+    const {
+        error: chatroomListError,
+        getChatroomList,
+        isLoading: chatroomListLoading,
+    } = useChatroomList();
 
-    const [login, setLogin] = useAtom(loginAtom);
-    const [mainDashboardIntervalID, setMainDashboardIntervalID] =
-        useState(null);
+    const {
+        error: userListError,
+        getUserList,
+        isLoading: userListIsLoading,
+    } = useUserList();
+
+    const [dashboardItem, setDashboardItem] = useAtom(dashboardAtom);
+    const [chatroomList, setChatroomList] = useState(chatroomListAtom);
+    const [userList, setUserList] = useAtom(userListAtom);
+
+    const [renderActiveUsers, setRenderActiveUsers] = useState(true);
+    const [renderChatroomList, setRenderChatroomList] = useState(true);
+    const [renderUserList, setRenderUserList] = useState(true);
+
+    const [currentChatroom, setCurrentChatroom] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
     useEffect(() => {
-        const getDashboardItems = () => {
-            getDashboard();
-        };
+        const dashboardInterval = setInterval(async () => {
+            getDashboard().then((item) => {
+                if (_.isEqual(item, dashboardItem)) {
+                    setRenderActiveUsers(false);
+                } else {
+                    setRenderActiveUsers(true);
+                    setDashboardItem(item);
+                }
+            });
+        }, 1000);
 
-        setMainDashboardIntervalID(setInterval(getDashboardItems, 1000));
+        return () => clearInterval(dashboardInterval);
+    }, [dashboardItem]);
+
+    useEffect(() => {
+        const chatroomListInterval = setInterval(async () => {
+            getChatroomList().then((clist) => {
+                if (_.isEqual(clist, chatroomList)) {
+                    setRenderChatroomList(false);
+                } else {
+                    setRenderChatroomList(true);
+                    setChatroomList(clist);
+                }
+            });
+        }, 1000);
+
+        return () => clearInterval(chatroomListInterval);
     }, []);
 
     useEffect(() => {
-        if (error !== null) {
-            if (error === "access denied" || error.includes("jwt")) {
+        const userListInterval = setInterval(async () => {
+            getUserList().then((ulist) => {
+                if (_.isEqual(ulist, userList)) {
+                    setRenderUserList(false);
+                } else {
+                    setRenderUserList(true);
+                    setUserList(ulist);
+                }
+            });
+        }, 1000);
+
+        return () => clearInterval(userListInterval);
+    }, []);
+
+    useEffect(() => {});
+
+    useLayoutEffect(() => {
+        if (dashboardItemError) {
+            if (
+                dashboardItemError === "access denied" ||
+                dashboardItemError.includes("jwt")
+            ) {
                 localStorage.removeItem("login");
-                clearInterval(mainDashboardIntervalID);
-                setLogin(false);
             }
         }
-    }, [error]);
+    }, [dashboardItemError]);
 
     return (
-        <div className="p-4 align-self-baseline container-fluid">
-            <div className="panel-row-1 d-flex container-fluid flex-sm-column flex-xl-row gap-lg-5">
-                <div className="d-flex flex-column main-stats-div">
-                    <h2>Main Stats</h2>
-                    <div className="blocks main-stats p-3 fs-4">
-                        <div className="concurrent-div">
-                            {dashboardItem ? (
-                                <Dashboard dashboardItem={dashboardItem} />
-                            ) : (
-                                <p></p>
-                            )}
+        <div className="main-panel w-100">
+            <h3>
+                Active Users:{" "}
+                {dashboardItemError ? (
+                    <span className="text-danger">{`Error: ${dashboardItemError}`}</span>
+                ) : (
+                    <></>
+                )}
+            </h3>
+            <div className="active-users d-flex align-items-center ">
+                {renderActiveUsers ? (
+                    <div className="spinner-border spinner mt-3 ms-3 "></div>
+                ) : (
+                    dashboardItem.concurrentusers.map((item, index) => {
+                        return <ActiveCard email={item} key={index} />;
+                    })
+                )}
+            </div>
+            <div className="d-flex mt-5">
+                <div className="w-25 me-5">
+                    <h3 className="">Top User</h3>
+                    <div className="blocks-2 p-4 w-100 d-fle flex-column shadow rounded">
+                        <div className="bg-transparent d-flex align-items-center ">
+                            <RxAvatar className="bg-transparent" size={30} />
+                            <span className="bg-transparent mx-3 fs-3">
+                                {dashboardItem.topuser.user ||
+                                    `loading user id....`}
+                            </span>
+                        </div>
+                        <div className="bg-transparent d-flex align-items-center">
+                            <TfiTime className="bg-transparent " size={28} />
+                            <span className="bg-transparent mx-3 fs-3">
+                                {dashboardItem.topuser.usage
+                                    ? `${
+                                          Math.round(
+                                              (dashboardItem.topuser.usage /
+                                                  3600 +
+                                                  Number.EPSILON) *
+                                                  100
+                                          ) / 100
+                                      } hrs`
+                                    : `loading hrs...`}
+                            </span>
                         </div>
                     </div>
                 </div>
-                <div className="chatroom-stats mt-5 d-flex flex-column mt-lg-0 ">
-                    <h2>Chatroom Stats</h2>
-                    <div className="chatroom-dashbaord-div d-flex gap-3 ">
-                        <div className="d-flex gap-3">
-                            <div className="dropdown-div">
-                                <DropdownButton
-                                    id="dropdown-basic-button"
-                                    title={currentChatroom || "Chatrooms"}
-                                >
-                                    {chatroomList ? (
-                                        <ChatroomDropdown
-                                            chatroomList={chatroomList}
-                                            setCurrentChatroom={
-                                                setCurrentChatroom
-                                            }
-                                        />
-                                    ) : (
-                                        <></>
-                                    )}
-                                </DropdownButton>
-                            </div>
+                <div className="w-25">
+                    <h3 className="">Least User</h3>
+                    <div className="blocks-3 p-4 w-100 d-fle flex-column shadow rounded">
+                        <div className="bg-transparent d-flex align-items-center ">
+                            <RxAvatar className="bg-transparent" size={30} />
+                            <span className="bg-transparent mx-3 fs-3">
+                                {dashboardItem.bottomuser.user ||
+                                    `loading user id....`}
+                            </span>
                         </div>
-                        <div className="stat-div blocks p-3">
-                            {currentChatroom ? (
-                                <ChatroomDashboard chatroom={currentChatroom} />
-                            ) : (
-                                <div className="d-flex justify-content-center align-items-center ">
-                                    <p className="m-0 fs-5">select chatroom</p>
-                                </div>
-                            )}
+                        <div className="bg-transparent d-flex align-items-center">
+                            <TfiTime className="bg-transparent " size={28} />
+                            <span className="bg-transparent mx-3 fs-3">
+                                {`${
+                                    Math.round(
+                                        (dashboardItem.bottomuser.usage / 3600 +
+                                            Number.EPSILON) *
+                                            100
+                                    ) / 100
+                                } hrs`}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="user-stats mt-5 container-fluid ">
-                <h2>User Stats</h2>
-                <div className="user-stats-main d-flex gap-3">
-                    <div className="dropdown-div">
-                        <DropdownButton
-                            id="dropdown-basic-button"
-                            title={currentUser || "Users"}
-                        >
-                            {userList ? (
-                                <UserDropdown
-                                    userList={userList}
-                                    setCurrentUser={setCurrentUser}
-                                />
-                            ) : (
-                                <></>
-                            )}
-                        </DropdownButton>
+
+            <div className="chatrooms-panel w-100 mt-5">
+                <h3>Chatroom Panel</h3>
+                <div className="w-100 d-flex g-2">
+                    <DropdownButton
+                        title={
+                            currentChatroom
+                                ? currentChatroom
+                                : `Select Chatroom`
+                        }
+                    >
+                        <DropdownComponent
+                            list={chatroomList}
+                            setter={setCurrentChatroom}
+                        />
+                    </DropdownButton>
+
+                    <div className="chart-div">
+                        {<ChatroomChart currentChatroom={currentChatroom} />}
                     </div>
-                    <div className="stat-div blocks p-3 overflow-hidden h-25 ">
-                        {currentUser ? (
-                            <UserDashboard user={currentUser} />
-                        ) : (
-                            <div className="d-flex justify-content-center align-items-center ">
-                                <p className="m-0 fs-5">select user</p>
-                            </div>
-                        )}
+                </div>
+            </div>
+
+            <div className="user-panel w-100 mt-3">
+                <h3>User Panel</h3>
+                <div className="w-100 d-flex g-2">
+                    <DropdownButton
+                        title={currentUser ? currentUser : `Select User`}
+                    >
+                        <DropdownComponent
+                            list={userList}
+                            setter={setCurrentUser}
+                        />
+                    </DropdownButton>
+
+                    <div className="chart-div">
+                        {<UserChart currentUser={currentUser} />}
                     </div>
                 </div>
             </div>
         </div>
     );
-};
-
-export default Main;
+}

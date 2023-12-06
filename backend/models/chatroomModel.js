@@ -164,4 +164,45 @@ chatroomSchema.statics.getChatroom = async function (chatroom) {
     return chatroomObject;
 };
 
+chatroomSchema.statics.getChatroomDashboard = async function (chatroom) {
+    const messageCount = await this.aggregate([
+        { $match: { room: chatroom } },
+        { $unwind: "$chat" },
+        { $group: { _id: "$chat.user", count: { $sum: 1 } } },
+    ]);
+
+    const { logs } = await this.findOne(
+        { room: chatroom },
+        { _id: 0, logs: 1 }
+    );
+
+    return {
+        messageCount,
+        logs,
+    };
+};
+
+chatroomSchema.statics.getMessageCountByUser = async function (chatroom, user) {
+    const obj = await this.aggregate([
+        { $match: { room: chatroom } },
+        { $unwind: "$chat" },
+        { $group: { _id: "$chat.user", count: { $sum: 1 } } },
+        { $match: { _id: user } },
+    ]);
+
+    if (obj.length !== 0) {
+        const { _id, count } = obj[0];
+
+        return {
+            count,
+            chatroom,
+        };
+    } else {
+        return {
+            count: 0,
+            chatroom,
+        };
+    }
+};
+
 module.exports = mongoose.model("Chatroom", chatroomSchema);

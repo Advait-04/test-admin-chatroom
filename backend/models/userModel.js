@@ -174,7 +174,7 @@ userSchema.statics.getBottomUser = async function () {
 };
 
 userSchema.statics.getUser = async function (email) {
-    const user = await this.find({ email });
+    const user = await this.findOne({ email });
 
     if (!user) {
         throw Error("The user does not exist");

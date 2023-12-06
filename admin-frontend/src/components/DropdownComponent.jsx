@@ -1,21 +1,21 @@
 import Dropdown from "react-bootstrap/Dropdown";
 
-const ChatroomDropdown = ({ chatroomList, setCurrentChatroom }) => {
-    return chatroomList.map((chatroom, index) => {
+const DropdownComponent = ({ list, setter }) => {
+    return list.map((item, index) => {
         return (
             <Dropdown.Item
                 href=""
                 key={index}
                 onClick={(e) => {
                     if (e.target.innerText) {
-                        setCurrentChatroom(e.target.innerText);
+                        setter(e.target.innerText);
                     }
                 }}
             >
-                {chatroom.room}
+                {item.room || item.email}
             </Dropdown.Item>
         );
     });
 };
 
-export default ChatroomDropdown;
+export default DropdownComponent;

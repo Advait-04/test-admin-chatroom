@@ -193,6 +193,43 @@ const getChatroom = async (req, res) => {
     }
 };
 
+const getChatroomDashboard = async (req, res) => {
+    const { chatroom } = req.params;
+
+    try {
+        const chatroomDashboardObject = await Chatroom.getChatroomDashboard(
+            chatroom
+        );
+        res.status(200).json(chatroomDashboardObject);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const getUserDashboard = async (req, res) => {
+    const { email } = req.params;
+
+    console.log(email);
+
+    try {
+        const userObj = await User.getUser(email);
+
+        const result = await Promise.all(
+            userObj.logs.chatrooms.map((room) =>
+                Chatroom.getMessageCountByUser(room, email)
+            )
+        );
+
+        res.status(200).json({
+            email,
+            logs: userObj.logs,
+            chartdata: result,
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     updateChatrooms,
     updateNoOfTotalChats,
@@ -209,4 +246,6 @@ module.exports = {
     getAllUser,
     getChatrooms,
     getChatroom,
+    getChatroomDashboard,
+    getUserDashboard,
 };

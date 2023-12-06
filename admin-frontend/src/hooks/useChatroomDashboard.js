@@ -4,7 +4,7 @@ import * as CryptoJS from "crypto-js";
 export const useChatroomDashboard = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(null);
-    const [chatroomDashboard, setChatroomDashboard] = useState(null);
+
     const secret = "KllPI7zmhucBQYu";
 
     const getChatroomDashboard = async (chatroom) => {
@@ -22,8 +22,8 @@ export const useChatroomDashboard = () => {
             ).toString(CryptoJS.enc.Utf8)
         ).authToken;
 
-        const chatroomResponse = await fetch(
-            `/api/admin/getchatrooms/${chatroom}`,
+        const chatroomDashboardResponse = await fetch(
+            `/api/admin/getchatroomdashboard/${chatroom}`,
             {
                 method: "GET",
                 headers: {
@@ -33,19 +33,22 @@ export const useChatroomDashboard = () => {
             }
         );
 
-        const chatroomJson = await chatroomResponse.json();
+        const chatroomDashboardJSON = await chatroomDashboardResponse.json();
 
-        if (!chatroomResponse.ok) {
-            setError(chatroomJson.error);
+        if (!chatroomDashboardResponse.ok) {
+            setError(chatroomDashboardJSON.error);
             setIsLoading(false);
-        }
-
-        if (chatroomResponse.ok && chatroomJson) {
-            setChatroomDashboard(chatroomJson);
+        } else {
             setError(null);
             setIsLoading(false);
+
+            return chatroomDashboardJSON;
         }
     };
 
-    return { error, isLoading, chatroomDashboard, getChatroomDashboard };
+    return {
+        error,
+        isLoading,
+        getChatroomDashboard,
+    };
 };
