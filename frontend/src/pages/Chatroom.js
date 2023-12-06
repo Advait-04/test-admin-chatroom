@@ -59,8 +59,6 @@ const Chatroom = () => {
                 body: JSON.stringify({ room, user: user.email, text }),
             });
 
-            console.log(response);
-
             if (localStorage.getItem("logs") && response.ok) {
                 const logs = JSON.parse(localStorage.getItem("logs"));
 

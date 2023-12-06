@@ -209,8 +209,6 @@ const getChatroomDashboard = async (req, res) => {
 const getUserDashboard = async (req, res) => {
     const { email } = req.params;
 
-    console.log(email);
-
     try {
         const userObj = await User.getUser(email);
 
